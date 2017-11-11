@@ -1,0 +1,18 @@
+{
+  "name": "neswitch",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "jsnes": "^0.3.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-scripts": "1.0.17",
+    "ringbufferjs": "git://github.com/bfirsh/ringbufferjs.git#add-peek-count"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
