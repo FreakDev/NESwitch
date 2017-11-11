@@ -8,6 +8,8 @@ import FrameTimer from "../libs/FrameTimer";
 import Speakers from "../libs/Speakers";
 import { NES, Controller } from "jsnes";
 
+import './assets/nes.css' 
+
 const BASE_ROM_URL = 'roms/'
 
 export const CONTROLS = {
@@ -49,7 +51,7 @@ class Nes extends Component {
 
   render() {
     return (
-        <div ref={ ref => this.screenContainer = ref} style={{ height: '100%' }}>
+        <div ref={ ref => this.screenContainer = ref} style={ this.props.style } className="screen-container">
             <canvas
                 className="Screen"
                 width="256"
@@ -62,6 +64,7 @@ class Nes extends Component {
                 ref={canvas => {
                 this.canvas = canvas;
                 }}
+                style={{ width: 0 }}
             />
         </div>
     );
@@ -90,7 +93,7 @@ class Nes extends Component {
     this.nes = new NES({
       onFrame: this.setBuffer,
       onStatusUpdate: console.log,
-      onAudioSample: this.speakers.writeSample
+      onAudioSample: () => { /*this.speakers.writeSample*/ }
     });
 
     this.frameTimer = new FrameTimer({
@@ -244,9 +247,12 @@ class Nes extends Component {
     this.nes.zapperFireDown();
   };
 
-  sendInput(player, btn) {
-    this.nes.buttonDown(player, btn)
-    // this.nes.buttonUp(player, btn)
+  buttonDown(player, button) {
+    this.nes.buttonDown(player, button)    
+  }
+
+  buttonUp(player, button) {
+    this.nes.buttonUp(player, button)    
   }
 
 }

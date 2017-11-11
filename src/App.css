@@ -1,6 +1,133 @@
 .App {
   text-align: center;
+  flex:1;
+
+  display: flex;
+  flex-direction: row;
+
+  background: #262626;  
+  margin: 1%;
+  margin-top: 3%;
+}
+
+.App .center-col {
+  background: linear-gradient(
+    to bottom,
+    #878787,
+    #878787 80%,
+    #262626 80%,
+    #262626
+  );
+  /* The rectangle in which to repeat. 
+     It can be fully wide in this case */
+  background-size: 100% 34%;
+}
+
+.App .buttons {
+  background: #d5d5d5;
+  display: inline-block;
+}
+
+.App .button-wrapper {
+  display: inline-block;
+  text-align: center;
+  margin: 5px;
+}
+
+.App .button {
+  display: inline-block;  
+  width: 4em;
+  height: 1.5em;
+  background: black;
+}
+
+
+
+
+.App .center-col .buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;  
+}
+
+.App .center-col .buttons span {
+  font-size: 0.8em;
+}
+
+
+
+.App .actions-buttons {
+  position: relative;
+}
+
+.App .actions-buttons .buttons-row {
   position: absolute;
-  height: 100%;
+  bottom: 5%;
   width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.App .actions-buttons .button {
+  border-radius: 50%;
+  width: 3em;
+  height: 3em;
+  background: #fb0007;
+}
+
+
+
+
+.App .direction-buttons {
+  position: relative;
+  /* text-align: left; */
+}
+
+.App .direction-buttons .buttons {
+  position: absolute;
+  bottom: 5%;
+  width: 70%;
+  margin-left: -33%;
+  background: none;
+}
+
+.App .direction-buttons .button {
+  border: 1px solid;
+}
+
+.App .direction-buttons .button {
+  background: #0e0e0e;
+  position: absolute;
+}
+
+.App .direction-buttons .up .button,
+.App .direction-buttons .bottom .button {
+  width: 3em;
+  height: 3.5em;
+}
+
+.App .direction-buttons .left .button,
+.App .direction-buttons .right .button {
+  width: 3.5em;
+  height: 3em;
+}
+
+.App .direction-buttons .up .button {
+  top: -600%;
+  left: 30%;
+}
+
+.App .direction-buttons .bottom .button {
+  top: -250%;
+  left: 30%;
+}
+
+.App .direction-buttons .left .button {
+  top: -400%;
+  left: 5%;
+}
+
+.App .direction-buttons .right .button {
+  top: -400%;
+  left: 50%;
 }

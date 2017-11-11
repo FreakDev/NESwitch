@@ -1,0 +1,10 @@
+
+.screen-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.screen-container canvas {
+    margin:auto;
+}
