@@ -179,7 +179,6 @@ class Nes extends Component {
 
   initCanvas() {
     this.context = this.canvas.getContext("2d");
-    console.log(this.context)
     this.imageData = this.context.getImageData(0, 0, 256, 240);
 
     this.context.fillStyle = "black";

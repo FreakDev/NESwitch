@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { Nes, CONTROLS } from './modules/nes'
 
-import './App.css';
+
+import './css/App.css';
 
 const Button = (props) => {
   const { className, buttonDown, buttonUp, ...btnProps } = props;
@@ -65,12 +66,6 @@ class App extends Component {
     this.nes.buttonUp(1, button)
   }
 
-  componentDidMount() {
-    document.addEventListener('keyup', ((e) => {
-      if (e.keyCode === 32) {
-        this.nes.sendInput(1, CONTROLS.START)
-      }
-    }).bind(this))
   }
 }
 
