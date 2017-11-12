@@ -1,23 +1,36 @@
 import React, { Component } from 'react';
 
 import { Nes, CONTROLS } from './modules/nes'
-import FontAwesome from 'react-fontawesome';
 
+import client, { MESSAGE_TYPES } from './network/client'
 
-import './css/App.css';
+import './css/App.css'
 
-const Button = (props) => {
-  const { className, buttonDown, buttonUp, name, ...btnProps } = props;
-  return (
-    <div onTouchStart={ buttonDown && buttonDown.bind(this, name) } onTouchEnd={ buttonUp && buttonUp.bind(this, name) } className={ "button-wrapper " + className }>
-      <div className="button" { ...btnProps }>
-        { props.children }
+class Button extends React.Component {
+  handleDown() {
+    this.props.buttonDown && this.props.buttonDown(this.props.name)
+  }
+
+  handleUp() {
+    this.props.buttonUp && this.props.buttonUp(this.props.name)
+  }
+
+  render() {
+    const { className, ...btnProps } = this.props
+    return (
+      <div onMouseDown={ this.handleDown.bind(this) } 
+           onMouseUp={ this.handleUp.bind(this) } 
+           onTouchStart={ this.handleDown.bind(this) } 
+           onTouchEnd={ this.handleUp.bind(this) } className={ "button-wrapper " + className }>
+        <div className="button" { ...btnProps }>
+          { this.props.children }
+        </div>
+        {(
+          this.props.label ? <span><br />{ this.props.label }</span> : null
+        )}
       </div>
-      {(
-        props.label ? <span><br />{ props.label }</span> : null
-      )}
-    </div>
-  )
+    )
+  }
 }
 
 const SCREEN_STATES = ['screen', 'splitted', 'gamepad']
@@ -39,12 +52,14 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.buttonDown = this.buttonDown.bind(this);
-    this.buttonUp = this.buttonUp.bind(this);
-    this.switchScreenState = this.switchScreenState.bind(this);
+    this.buttonDown = this.buttonDown.bind(this)
+    this.buttonUp = this.buttonUp.bind(this)
+    this.switchScreenState = this.switchScreenState.bind(this)
+    this.connectGamePad = this.connectGamePad.bind(this)
 
     this.state = {
-      screenState: 'splitted'
+      screenState: 'splitted',
+      instanceCode: ''
     }
   }
 
@@ -57,6 +72,20 @@ class App extends Component {
               { this.state.screenState }
             </Button>
           </div>
+          {
+            ( this.state.screenState === SCREEN_STATES[0] ? (
+              <div>
+                { this.state.instanceCode }
+              </div> ) : null
+            )
+          }
+          {
+            ( this.state.screenState === SCREEN_STATES[2] ? (
+              <div>
+                <input type="text" value={ this.state.instanceCode } onChange={(e) => this.setState({ instanceCode : e.target.value })}/><button onClick={ this.connectGamePad }>Connect</button>
+              </div> ) : null
+            )
+          }
           {
             ( this.state.screenState !== 'screen' ? (
               <div className="buttons direction-buttons">
@@ -99,20 +128,55 @@ class App extends Component {
     );
   }
 
+  componentDidMount() {
+    client.init()
+  }
+
   buttonDown(button) {
-    this.nes.buttonDown(1, button)
+    if (this.state.screenState === SCREEN_STATES[1]) {
+      this.nes.buttonDown(1, button)
+    } else {
+      client.send(MESSAGE_TYPES.BUTTON, { button, pressed:true })
+    }
   }
 
   buttonUp(button) {
-    this.nes.buttonUp(1, button)
+    if (this.state.screenState === SCREEN_STATES[1]) {      
+      this.nes.buttonUp(1, button)
+    } else {
+      client.send(MESSAGE_TYPES.BUTTON, { button, pressed:false })
+    }
+  }
+
+  connectGamePad() {
+    client.send(MESSAGE_TYPES.CONNECT, { code: this.state.instanceCode })
   }
 
   switchScreenState() {
     let nextIndex = SCREEN_STATES.indexOf(this.state.screenState) + 1
     nextIndex > (SCREEN_STATES.length - 1) && (nextIndex = 0)
+
+    let nextState = SCREEN_STATES[nextIndex]
+
     this.setState({
-      screenState: SCREEN_STATES[nextIndex]
+      screenState: nextState,
+      instanceCode: ''
     });
+
+    if (nextState === SCREEN_STATES[0]) { // screen
+        client.addListener(MESSAGE_TYPES.SET_CODE, (data) => {
+          this.setState({
+            instanceCode: data.code
+          })
+          client.removeListener(MESSAGE_TYPES.SET_CODE)
+          client.addListener(MESSAGE_TYPES.BUTTON, (data) => {
+            this.nes['button' + (data.pressed ? 'Down' : 'Up')](1, data.button)
+          })
+        })
+        client.send(MESSAGE_TYPES.GET_CODE)
+    } else {
+      client.removeListener(MESSAGE_TYPES.SET_CODE)
+    }
   }
 
 }
