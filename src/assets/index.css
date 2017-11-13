@@ -1,0 +1,31 @@
+.overlay {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  background-image: url('./rotatedevice.gif');
+  background-position: 50% 50%;
+  background-repeat: no-repeat
+}
+
+@media screen and (orientation: portrait) {
+  .overlay {
+    display: block;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+
+}
+
+#root {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: #d5d5d5;  
+}

@@ -4,7 +4,7 @@ import { Nes, CONTROLS } from './modules/nes'
 
 import client, { MESSAGE_TYPES } from './network/client'
 
-import './css/App.css'
+import './assets/App.css'
 
 class Button extends React.Component {
   handleDown() {
@@ -123,6 +123,9 @@ class App extends Component {
               </div>
             ) : null)
           }
+        </div>
+        <div className="overlay">
+          
         </div>
       </div>
     );
