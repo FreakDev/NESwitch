@@ -22,7 +22,7 @@ const client = {
     },
 
     init() {
-        socket = io('http://' + document.location.hostname + ':3001', { transports: ['websocket']});
+        socket = io(document.location.protocol + '//' + document.location.hostname + (document.location.protocol.indexOf('s') === -1 ? ':' + document.location.port : ''), { transports: ['websocket']});
     
         socket.on('connect', () => {
             connected = true
