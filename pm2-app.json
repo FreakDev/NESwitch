@@ -1,0 +1,7 @@
+{
+    "apps" : [{
+      "name"        : "worker",
+      "script"      : "./server/index.js",
+      "watch"       : true
+    }]
+}

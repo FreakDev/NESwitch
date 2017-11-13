@@ -1,0 +1,18 @@
+version: '2'
+services: 
+  app:
+    build: 
+      context: .
+    ports:
+      - "3001:3001"
+    volumes:
+      # - /path/to/public:/usr/src/app/public
+      # - /path/to/server:/usr/src/app/server
+      # - /path/to/src:/usr/src/app/src
+    network_mode: bridge
+    environment: 
+      - TERM=xterm    
+      - LETSENCRYPT_HOST=neswitch.freakdev.com
+      - LETSENCRYPT_EMAIL=freakdev@gmail.com
+      - VIRTUAL_HOST=neswitch.freakdev.com
+      - VIRTUAL_PORT=3001
