@@ -9,7 +9,7 @@
   background-repeat: no-repeat
 }
 
-@media screen and (orientation: portrait) {
+@media screen and (max-width: 414px) {
   .overlay {
     display: block;
   }

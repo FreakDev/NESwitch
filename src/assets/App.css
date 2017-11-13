@@ -92,8 +92,10 @@
   background: none;
 }
 
-.App .left-column .button {
-  /* border: 1px solid; */
+@media screen and (max-height: 150px) {
+  .App .left-column .direction-buttons {
+    display: none;
+  }
 }
 
 .App .left-column .direction-buttons .button {
