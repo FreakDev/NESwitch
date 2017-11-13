@@ -1,5 +1,9 @@
 
-var io = require('socket.io')();
+var express = require('express')
+var app = express();
+var server = require('http').createServer(app);
+
+var io = require('socket.io')(server);
 
 var MESSAGE_TYPES = {
     CONNECT: 'CONNECT',
@@ -43,6 +47,8 @@ function transmit(client, data) {
         instance.send( data )
 }
 
+app.use(express.static(__dirname + "/../build"))
+
 io.on('connection', function(client){
     client.on('message', function (data) {
         switch (data.type) {
@@ -60,5 +66,4 @@ io.on('connection', function(client){
     });
 });
 
-
-io.listen(3002);
+server.listen(3001);

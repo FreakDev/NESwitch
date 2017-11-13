@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "express": "^4.16.2",
     "jsnes": "^0.3.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-scripts": "1.0.17",
-    "ringbufferjs": "git://github.com/bfirsh/ringbufferjs.git#add-peek-count"
+    "ringbufferjs": "git://github.com/bfirsh/ringbufferjs.git#add-peek-count",
+    "socket.io": "^2.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
