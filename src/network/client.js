@@ -8,6 +8,7 @@ let socket = null
 export const MESSAGE_TYPES = {
     CONNECT: 'CONNECT',
     GET_CODE: 'GET_CODE',
+    RELEASE_CODE: 'RELEASE_CODE',
     BUTTON: 'BUTTON',
     SET_CODE: 'SET_CODE'
 };

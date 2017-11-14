@@ -16,7 +16,7 @@ class Button extends React.Component {
   }
 
   render() {
-    const { className, ...btnProps } = this.props
+    const { className, buttonUp, buttonDown, ...btnProps } = this.props
     return (
       <div onMouseDown={ this.handleDown.bind(this) } 
            onMouseUp={ this.handleUp.bind(this) } 
@@ -160,6 +160,10 @@ class App extends Component {
     nextIndex > (SCREEN_STATES.length - 1) && (nextIndex = 0)
 
     let nextState = SCREEN_STATES[nextIndex]
+
+    if (this.state.screenState === SCREEN_STATES[0]) { // screen
+      client.send(MESSAGE_TYPES.RELEASE_CODE)      
+    } 
 
     this.setState({
       screenState: nextState,
