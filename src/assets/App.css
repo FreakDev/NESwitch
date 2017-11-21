@@ -17,6 +17,10 @@
   background-size: contain;
 }
 
+.App .header > div {
+  padding-top: 0.5%;
+}
+
 .App .content {
   height: 97%;
   width: 100%;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { Nes, CONTROLS } from './modules/nes'
+import Select from './Select'
 
 import client, { MESSAGE_TYPES } from './network/client'
 
@@ -33,7 +34,7 @@ class Button extends React.Component {
   }
 }
 
-const SCREEN_STATES = ['screen', 'splitted', 'gamepad']
+const SCREEN_STATES = ['splitted', 'screen', 'gamepad']
 
 const styles = {
   side: {
@@ -67,14 +68,12 @@ class App extends Component {
     return (
       <div className="App">
         <div className="header">
+          <div>
+            <Select onChange={ this.switchScreenState } options={SCREEN_STATES} />
+          </div>
         </div>
         <div className="content">
           <div className="col-1 left-column" style={ styles.side[this.state.screenState] }>
-            <div>
-                <Button buttonUp={ this.switchScreenState } name="switchScreenState">
-                  { this.state.screenState }
-                </Button>
-            </div>
             {
               ( this.state.screenState === SCREEN_STATES[0] ? (
                 <div>
@@ -158,11 +157,11 @@ class App extends Component {
     client.send(MESSAGE_TYPES.CONNECT, { code: this.state.instanceCode })
   }
 
-  switchScreenState() {
-    let nextIndex = SCREEN_STATES.indexOf(this.state.screenState) + 1
-    nextIndex > (SCREEN_STATES.length - 1) && (nextIndex = 0)
+  switchScreenState(nextState) {
+    // let nextIndex = SCREEN_STATES.indexOf(this.state.screenState) + 1
+    // nextIndex > (SCREEN_STATES.length - 1) && (nextIndex = 0)
 
-    let nextState = SCREEN_STATES[nextIndex]
+    // let nextState = SCREEN_STATES[nextIndex]
 
     if (this.state.screenState === SCREEN_STATES[0]) { // screen
       client.send(MESSAGE_TYPES.RELEASE_CODE)      
