@@ -137,6 +137,11 @@ class App extends Component {
     client.init()
   }
 
+  componentDidUpdate() {
+    if (this.nes)
+      this.nes.fitInParent()
+  }
+
   buttonDown(button) {
     if (this.state.screenState === SCREEN_STATES[1]) {
       this.nes.buttonDown(1, button)
@@ -158,11 +163,6 @@ class App extends Component {
   }
 
   switchScreenState(nextState) {
-    // let nextIndex = SCREEN_STATES.indexOf(this.state.screenState) + 1
-    // nextIndex > (SCREEN_STATES.length - 1) && (nextIndex = 0)
-
-    // let nextState = SCREEN_STATES[nextIndex]
-
     if (this.state.screenState === SCREEN_STATES[0]) { // screen
       client.send(MESSAGE_TYPES.RELEASE_CODE)      
     } 
