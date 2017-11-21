@@ -127,8 +127,7 @@ class App extends Component {
             }
           </div>
         </div>
-        <div className="overlay">          
-        </div>
+        <div className="overlay"></div>
       </div>
     );
   }
