@@ -75,7 +75,7 @@ class App extends Component {
         <div className="content">
           <div className="col-1 left-column" style={ styles.side[this.state.screenState] }>
             {
-              ( this.state.screenState === SCREEN_STATES[0] ? (
+              ( this.state.screenState === SCREEN_STATES[1] ? (
                 <div>
                   { this.state.instanceCode }
                 </div> ) : null
@@ -142,7 +142,7 @@ class App extends Component {
   }
 
   buttonDown(button) {
-    if (this.state.screenState === SCREEN_STATES[1]) {
+    if (this.state.screenState === SCREEN_STATES[0]) {
       this.nes.buttonDown(1, button)
     } else {
       client.send(MESSAGE_TYPES.BUTTON, { button, pressed:true })
@@ -150,7 +150,7 @@ class App extends Component {
   }
 
   buttonUp(button) {
-    if (this.state.screenState === SCREEN_STATES[1]) {      
+    if (this.state.screenState === SCREEN_STATES[0]) {      
       this.nes.buttonUp(1, button)
     } else {
       client.send(MESSAGE_TYPES.BUTTON, { button, pressed:false })
@@ -162,7 +162,7 @@ class App extends Component {
   }
 
   switchScreenState(nextState) {
-    if (this.state.screenState === SCREEN_STATES[0]) { // screen
+    if (this.state.screenState === SCREEN_STATES[1]) { // screen
       client.send(MESSAGE_TYPES.RELEASE_CODE)      
     } 
 
@@ -171,7 +171,7 @@ class App extends Component {
       instanceCode: ''
     });
 
-    if (nextState === SCREEN_STATES[0]) { // screen
+    if (nextState === SCREEN_STATES[1]) { // screen
         client.addListener(MESSAGE_TYPES.SET_CODE, (data) => {
           this.setState({
             instanceCode: data.code
