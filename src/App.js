@@ -57,10 +57,13 @@ class App extends Component {
     this.buttonUp = this.buttonUp.bind(this)
     this.switchScreenState = this.switchScreenState.bind(this)
     this.connectGamePad = this.connectGamePad.bind(this)
+    this.disconnectGamePad = this.disconnectGamePad.bind(this)
 
     this.state = {
       screenState: 'splitted',
-      instanceCode: ''
+      instanceCode: '',
+      playerPos: 0,
+      error: '',
     }
   }
 
@@ -96,20 +99,32 @@ class App extends Component {
         </div>
         <div className="col-1 actions-buttons" style={ styles.side[this.state.screenState] }>
           <div className="settings">
+            Select a mode<br />
             <Select arrowColor="#878787" onChange={ this.switchScreenState } options={SCREEN_STATES} />        
             {
-              ( this.state.screenState === SCREEN_STATES[1] ? (
+              ( this.state.screenState === SCREEN_STATES[1] ? ( // screen
                 <div>
+                  <br />                  
                   { this.state.instanceCode }
                 </div> ) : null
               )
             }
             {
-              ( this.state.screenState === SCREEN_STATES[2] ? (
-                <div>
-                  <input type="text" value={ this.state.instanceCode } onChange={(e) => this.setState({ instanceCode : e.target.value })}/><br />
-                  <button onClick={ this.connectGamePad }>Connect</button>
-                </div> ) : null
+              ( this.state.screenState === SCREEN_STATES[2] ? ( // gamepad
+                  this.state.playerPos === 0 ? (
+                    <div>
+                      <br />
+                      Enter screen code : <br />
+                      <input type="text" value={ this.state.instanceCode } onChange={(e) => this.setState({ instanceCode : e.target.value })}/><br />
+                      <button onClick={ this.connectGamePad }>Connect</button>
+                    </div> ) 
+                  : (
+                    <div>
+                        Connected as player { this.state.playerPos }<br />
+                        <button onClick={ this.disconnectGamePad }>Disconnect</button>
+                    </div> 
+                  )
+                ) : null
               )
             }
           </div>
@@ -157,13 +172,50 @@ class App extends Component {
   }
 
   connectGamePad() {
+    client.addListener(MESSAGE_TYPES.CONNECT, (status) => {
+      client.removeListener(MESSAGE_TYPES.CONNECT)
+
+      client.addListener(MESSAGE_TYPES.DISCONNECT, () => {
+        client.removeListener(MESSAGE_TYPES.DISCONNECT)
+        this.setState({
+          playerPos: 0,
+          instanceCode: ''
+        })
+      })
+
+      if (status.success) {
+        this.setState({
+          playerPos: status.playerPos
+        });  
+      } else {
+        this.setState({
+          error: status.error
+        });          
+      }
+    });
     client.send(MESSAGE_TYPES.CONNECT, { code: this.state.instanceCode })
+  }
+
+  disconnectGamePad() {
+    client.send(MESSAGE_TYPES.DISCONNECT, { code: this.state.instanceCode })    
+    this.setState({
+      playerPos: 0
+    })
+  }
+
+  switchRom(rom) {
+    if (rom.value !== this.state.rom)
+      this.setState({
+        rom: rom.value
+      })
   }
 
   switchScreenState(nextState) {
     if (this.state.screenState === SCREEN_STATES[1]) { // screen
-      client.send(MESSAGE_TYPES.RELEASE_CODE)      
-    } 
+      client.send(MESSAGE_TYPES.RELEASE_CODE)
+    } else if(this.state.screenState === SCREEN_STATES[2]) { // gamepad
+      this.disconnectGamePad()
+    }
 
     this.setState({
       screenState: nextState,
@@ -177,7 +229,7 @@ class App extends Component {
           })
           client.removeListener(MESSAGE_TYPES.SET_CODE)
           client.addListener(MESSAGE_TYPES.BUTTON, (data) => {
-            this.nes['button' + (data.pressed ? 'Down' : 'Up')](1, data.button)
+            this.nes['button' + (data.pressed ? 'Down' : 'Up')](data.player, data.button)
           })
         })
         client.send(MESSAGE_TYPES.GET_CODE)

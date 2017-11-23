@@ -13,7 +13,8 @@ export const MESSAGE_TYPES = {
     GET_CODE: 'GET_CODE',
     RELEASE_CODE: 'RELEASE_CODE',
     BUTTON: 'BUTTON',
-    SET_CODE: 'SET_CODE'
+    SET_CODE: 'SET_CODE',
+    DISCONNECT: 'DISCONNECT'
 };
 
 const client = {
