@@ -5,6 +5,9 @@ let _listeners = {}
 let connected = false
 let socket = null
 
+const wsServer = '//localhost:3001'
+const socketIOConf = { transports: ['websocket']}
+
 export const MESSAGE_TYPES = {
     CONNECT: 'CONNECT',
     GET_CODE: 'GET_CODE',
@@ -23,7 +26,10 @@ const client = {
     },
 
     init() {
-        socket = io(document.location.protocol + '//' + document.location.hostname + (document.location.protocol.indexOf('s') === -1 ? ':' + document.location.port : ''), { transports: ['websocket']});
+        if (wsServer)
+            socket = io(wsServer, socketIOConf)
+        else 
+            socket = io(document.location.protocol + '//' + document.location.hostname + (document.location.protocol.indexOf('s') === -1 ? ':' + document.location.port : ''), socketIOConf );
     
         socket.on('connect', () => {
             connected = true
