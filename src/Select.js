@@ -42,8 +42,8 @@ export default class Select extends React.Component {
                 </span>
                 <div className={ 'dropdown' + (this.state.open ? ' open' : '') }>
                     <ul>
-                        { this.props.options.map(opt => (
-                            <li onClick={ this.clickOption.bind(this, opt)}>{ opt.label || opt }</li>
+                        { this.props.options.map((opt, k) => (
+                            <li key={k} onClick={ this.clickOption.bind(this, opt)}>{ opt.label || opt }</li>
                         ))}
                     </ul>
                 </div>
