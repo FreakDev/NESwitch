@@ -109,14 +109,21 @@ class Nes extends Component {
     // );
 
     window.addEventListener("resize", this.layout);
-    this.layout();
+    this.layout()
 
     if (this.props.rom)
-        this.load(this.props.rom);
+        this.load(this.props.rom)
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.rom !== this.props.rom) {
+      this.stop()
+      this.load(nextProps.rom);
+    }
   }
 
   componentWillUnmount() {
-    this.stop();
+    this.stop()
     // document.removeEventListener(
     //   "keydown",
     //   this.keyboardController.handleKeyDown
