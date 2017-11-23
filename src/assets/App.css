@@ -2,30 +2,12 @@
   text-align: center;
   flex:1;
 
-  background: #262626;  
-  margin: 1%;
-  margin-top: 0;
-}
-
-.App .header {
-  height: 3%;
-  width: 100%;  
-  background: #d5d5d5;
-  background-image: url(/images/logo-header.jpg);
-  background-position: 5%;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-
-.App .header > div {
-  padding-top: 0.5%;
-}
-
-.App .content {
-  height: 97%;
-  width: 100%;
   display: flex;
   flex-direction: row;
+
+  background: #262626;  
+  margin: 1%;
+  margin-top: 3%;
 }
 
 .App .center-col {
@@ -74,8 +56,14 @@
 }
 
 
+
 .App .actions-buttons {
   position: relative;
+}
+
+.App .actions-buttons .settings {
+  margin-top: 5%;
+  color: #878787;  
 }
 
 .App .actions-buttons .buttons-row {
@@ -100,6 +88,16 @@
   position: relative;
   color: #878787;
   /* text-align: left; */
+}
+
+.App .left-column .header {
+  height: 10%;
+  width: 100%;
+  margin-top: 5%;
+  background-image: url(/images/logo-header.jpg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .App .left-column .direction-buttons {

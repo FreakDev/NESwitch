@@ -11,20 +11,20 @@
 .arrow.down {
     width: 0; 
     height: 0; 
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    border-top: 5px solid #000;
+    border-left: 5px solid transparent !important;
+    border-right: 5px solid transparent !important;
+    border-bottom-color: transparent !important;
+    border-top: 5px solid;
     transform: translateY(-2.5px);
 }
 
 .arrow.right {
     width: 0; 
     height: 0; 
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    
-    border-left: 5px solid #000;
+    border-top: 5px solid transparent !important;
+    border-bottom: 5px solid transparent !important;
+    border-right-color: transparent !important;
+    border-left: 5px solid;
 }
 
 .dropdown {
@@ -34,6 +34,7 @@
     left: 0;
     text-align: left;
     background: #d5d5d5;
+    color: #000;
 }
 
 .dropdown ul {

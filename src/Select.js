@@ -38,7 +38,7 @@ export default class Select extends React.Component {
         return (
             <div className="select-wrapper">
                 <span className="selected" onClick={ this.toggleDropdown }>
-                    <div className={ 'arrow ' + (this.state.open ? 'down' : 'right') }></div> { this.state.value.label || this.state.value }
+                    <div style={{ borderColor: this.props.arrowColor || "#000" }} className={ 'arrow ' + (this.state.open ? 'down' : 'right') }></div> { this.state.value.label || this.state.value }
                 </span>
                 <div className={ 'dropdown' + (this.state.open ? ' open' : '') }>
                     <ul>

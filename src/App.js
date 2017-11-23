@@ -67,13 +67,36 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="header">
-          <div>
-            <Select onChange={ this.switchScreenState } options={SCREEN_STATES} />
+        <div className="col-1 left-column" style={ styles.side[this.state.screenState] }>
+          <div className="header">
           </div>
+          {
+            ( this.state.screenState !== 'screen' ? (
+              <div className="buttons direction-buttons">
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.UP } className="up"></Button>
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.RIGHT } className="right"></Button>
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.DOWN } className="bottom"></Button>
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.LEFT } className="left"></Button>
+              </div>
+            ) : null)
+          }
         </div>
-        <div className="content">
-          <div className="col-1 left-column" style={ styles.side[this.state.screenState] }>
+        <div className="col-1 center-col" style={ Object.assign({ display: 'flex', flexDirection: 'column' }, styles.center[this.state.screenState]) }>
+          {
+            ( this.state.screenState !== 'gamepad' ? <Nes style={{ flex: 5 }} rom="SMB3.nes" ref={ ref => this.nes = ref} /> : <div style={{ flex: 5 }} />)
+          }
+          {
+            ( this.state.screenState !== 'screen' ? (
+              <div style={{ flex: 1 }} className="buttons">
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.START } label="start"></Button>
+                <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.SELECT } label="select"></Button>
+              </div>  
+            ) : null)
+          }
+        </div>
+        <div className="col-1 actions-buttons" style={ styles.side[this.state.screenState] }>
+          <div className="settings">
+            <Select arrowColor="#878787" onChange={ this.switchScreenState } options={SCREEN_STATES} />        
             {
               ( this.state.screenState === SCREEN_STATES[1] ? (
                 <div>
@@ -84,48 +107,24 @@ class App extends Component {
             {
               ( this.state.screenState === SCREEN_STATES[2] ? (
                 <div>
-                  <input type="text" value={ this.state.instanceCode } onChange={(e) => this.setState({ instanceCode : e.target.value })}/><button onClick={ this.connectGamePad }>Connect</button>
+                  <input type="text" value={ this.state.instanceCode } onChange={(e) => this.setState({ instanceCode : e.target.value })}/><br />
+                  <button onClick={ this.connectGamePad }>Connect</button>
                 </div> ) : null
               )
             }
-            {
-              ( this.state.screenState !== 'screen' ? (
-                <div className="buttons direction-buttons">
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.UP } className="up"></Button>
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.RIGHT } className="right"></Button>
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.DOWN } className="bottom"></Button>
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.LEFT } className="left"></Button>
+          </div>
+          {
+            ( this.state.screenState !== 'screen' ? (
+              <div className="buttons-row">
+                <div className="buttons">
+                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.A } label="A"></Button>
                 </div>
-              ) : null)
-            }
-          </div>
-          <div className="col-1 center-col" style={ Object.assign({ display: 'flex', flexDirection: 'column' }, styles.center[this.state.screenState]) }>
-            {
-              ( this.state.screenState !== 'gamepad' ? <Nes style={{ flex: 5 }} rom="SMB3.nes" ref={ ref => this.nes = ref} /> : <div style={{ flex: 5 }} />)
-            }
-            {
-              ( this.state.screenState !== 'screen' ? (
-                <div style={{ flex: 1 }} className="buttons">
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.START } label="start"></Button>
-                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.SELECT } label="select"></Button>
-                </div>  
-              ) : null)
-            }
-          </div>
-          <div className="col-1 actions-buttons" style={ styles.side[this.state.screenState] }>
-            {
-              ( this.state.screenState !== 'screen' ? (
-                <div className="buttons-row">
-                  <div className="buttons">
-                    <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.A } label="A"></Button>
-                  </div>
-                  <div className="buttons">
-                    <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.B } label="B"></Button>
-                  </div>
+                <div className="buttons">
+                  <Button  buttonDown={ this.buttonDown } buttonUp={ this.buttonUp } name={ CONTROLS.B } label="B"></Button>
                 </div>
-              ) : null)
-            }
-          </div>
+              </div>
+            ) : null)
+          }
         </div>
         <div className="overlay"></div>
       </div>
