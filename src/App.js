@@ -35,6 +35,10 @@ class Button extends React.Component {
 }
 
 const SCREEN_STATES = ['splitted', 'screen', 'gamepad']
+const ROMS = [{value: 'SMB3', label: 'Super Mario Bros 3'}, 
+              {value: 'RCPAM', label: 'RCPAM'}, 
+              {value: 'TR', label: 'TR'}, 
+              {value: 'B2', label: 'Bomberman II'}]
 
 const styles = {
   side: {
@@ -56,6 +60,7 @@ class App extends Component {
     this.buttonDown = this.buttonDown.bind(this)
     this.buttonUp = this.buttonUp.bind(this)
     this.switchScreenState = this.switchScreenState.bind(this)
+    this.switchRom = this.switchRom.bind(this)    
     this.connectGamePad = this.connectGamePad.bind(this)
     this.disconnectGamePad = this.disconnectGamePad.bind(this)
 
@@ -64,6 +69,7 @@ class App extends Component {
       instanceCode: '',
       playerPos: 0,
       error: '',
+      rom: 'SMB3'
     }
   }
 
@@ -86,7 +92,7 @@ class App extends Component {
         </div>
         <div className="col-1 center-col" style={ Object.assign({ display: 'flex', flexDirection: 'column' }, styles.center[this.state.screenState]) }>
           {
-            ( this.state.screenState !== 'gamepad' ? <Nes style={{ flex: 5 }} rom="SMB3.nes" ref={ ref => this.nes = ref} /> : <div style={{ flex: 5 }} />)
+            ( this.state.screenState !== 'gamepad' ? <Nes style={{ flex: 5 }} rom={ this.state.rom + ".nes" } ref={ ref => this.nes = ref} /> : <div style={{ flex: 5 }} />)
           }
           {
             ( this.state.screenState !== 'screen' ? (
@@ -127,6 +133,15 @@ class App extends Component {
                 ) : null
               )
             }
+            {
+              this.state.screenState !== SCREEN_STATES[2] ? ( // screen
+                <div>
+                  <br />
+                  Select a game<br />
+                  <Select arrowColor="#878787" onChange={ this.switchRom } options={ROMS} />
+                </div>
+              ) : null 
+            }            
           </div>
           {
             ( this.state.screenState !== 'screen' ? (

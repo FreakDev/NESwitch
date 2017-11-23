@@ -35,6 +35,7 @@
     text-align: left;
     background: #d5d5d5;
     color: #000;
+    z-index: 1000;
 }
 
 .dropdown ul {
@@ -44,6 +45,14 @@
 
     display: none;
 }
+
+.dropdown li {
+    border-bottom: 1px solid;
+}
+.dropdown li:last-child {
+    border-bottom: 0;
+}
+
 
 .dropdown.open {
     padding: 15px;
