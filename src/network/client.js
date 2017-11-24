@@ -27,10 +27,10 @@ const client = {
     },
 
     init() {
-        if (wsServer)
-            socket = io(wsServer, socketIOConf)
-        else 
+        if (process.env.NODE_ENV === 'production')
             socket = io(document.location.protocol + '//' + document.location.hostname + (document.location.protocol.indexOf('s') === -1 ? ':' + document.location.port : ''), socketIOConf );
+        else 
+            socket = io(wsServer, socketIOConf)
     
         socket.on('connect', () => {
             connected = true
