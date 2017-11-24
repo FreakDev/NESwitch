@@ -36,8 +36,8 @@ class Button extends React.Component {
 
 const SCREEN_STATES = ['splitted', 'screen', 'gamepad']
 const ROMS = [{value: 'SMB3', label: 'Super Mario Bros 3'}, 
-              {value: 'RCPAM', label: 'RCPAM'}, 
-              {value: 'TR', label: 'TR'}, 
+              {value: 'RCPAM', label: 'RC Pro AM'}, 
+              {value: 'TR', label: 'Turbo Racing'}, 
               {value: 'B2', label: 'Bomberman II'}]
 
 const styles = {
