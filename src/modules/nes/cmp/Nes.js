@@ -93,7 +93,7 @@ class Nes extends Component {
     this.nes = new NES({
       onFrame: this.setBuffer,
       onStatusUpdate: console.log,
-      // onAudioSample: this.speakers.writeSample
+      onAudioSample: this.speakers.writeSample
     });
 
     this.frameTimer = new FrameTimer({
