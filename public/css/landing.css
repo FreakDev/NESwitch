@@ -81,23 +81,89 @@ header.open {
     top: 0;
     background: #e40b20;
     background-size: cover;
-    transform: translateY(-100%); 
-    transition: transform, 0.5s;
+    z-index: 1;
+    transform: translateY(-100%);
+    transition: transform 0.5s;
 }
 
-.slider .slide.show {
-    transform: translateY(0); 
+.slider.active-1 .slide:nth-child(6) {
+    transform: translateY(0%);
+    z-index: 5;
 }
+
+.slider.active-1 .slide:nth-child(1) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
+.slider.active-2 .slide:nth-child(1) {
+    transform: translateY(0%);
+    z-index: 5;
+}
+
+.slider.active-2 .slide:nth-child(2) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
+.slider.active-3 .slide:nth-child(2) {
+    transform: translateY(0%);
+    z-index: 5;
+}
+
+.slider.active-3 .slide:nth-child(3) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
+.slider.active-4 .slide:nth-child(3) {
+    transform: translateY(0%);
+    z-index: 5;
+}
+
+.slider.active-4 .slide:nth-child(4) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
+.slider.active-5 .slide:nth-child(4) {
+    transform: translateY(0%);
+    z-index: 5;
+}
+
+.slider.active-5 .slide:nth-child(5) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
+.slider.active-6 .slide:nth-child(5) {
+    transform: translateY(0%);
+    z-index: 5;
+}
+
+.slider.active-6 .slide:nth-child(6) {
+    transform: translateY(0%);
+    z-index: 10;
+}
+
 
 .slider .big-pic-1 {
     background-image: url('../images/big-pic-1.jpg');
 }
 
 .slider .big-pic-2 {
-    background-image: url('../images/big-pic-2.jpg');
+    background-image: url('../images/zoom.jpg');
 }
 
 .slider .big-pic-3 {
+    background-image: url('../images/big-pic-2.jpg');
+}
+
+.slider .big-pic-4 {
+    background-image: url('../images/stay.jpg');    
+}
+
+.slider .big-pic-5 {
     background-image: url('../images/big-pic-3.jpg');    
 }
 
@@ -109,6 +175,7 @@ header.open {
     font-size: 2em;
     font-family: 'Lato-Thin';
     text-align: center;
+    z-index: 100;
 }
 
 .slider .slide-overlay .logo-square {
