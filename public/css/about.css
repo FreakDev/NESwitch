@@ -360,3 +360,41 @@ main {
     color: white;
     font-size: 1.2em;
 }
+
+
+.links {
+    padding-top: 7%;
+    padding-bottom: 20%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    clear: both;
+}
+
+.links div {
+    text-align: center;    
+    flex: 1;
+    font-family: 'Lato';
+}
+
+.links a {
+    display: inline-block;
+    height: 200px;
+    width: 200px;
+    line-height: 450px;
+    background-size: contain;
+}
+
+.links .play a {
+    background-image: url('../images/play.jpg')
+}
+
+.links .github a {
+    background-image: url('../images/github.jpg')
+}
+
+.links a, .links a:visited, .links a:hover {
+    text-decoration: none;
+    color: black;
+}
