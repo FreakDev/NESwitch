@@ -19,9 +19,12 @@ $(function() {
         sliderIndex = nextSliderIndex;
     }, 3500);
 
-    $window.resize(function () {
+    function adjustSize () {
         $('.spacer').height($(window).height())
-    });
+    }
+
+    $window.resize(adjustSize);
+    adjustSize();
 
     $window.scroll(function () {
         if ($window.scrollTop() > 1) {
