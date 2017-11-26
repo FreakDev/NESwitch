@@ -86,6 +86,8 @@ class App extends Component {
       <div className="App">
         <div className="col-1 left-column" style={ styles.side[this.state.screenState] }>
           <div className="header">
+            <a href="/about.html">
+            </a>
           </div>
           {
             ( this.state.screenState !== 'screen' ? (
